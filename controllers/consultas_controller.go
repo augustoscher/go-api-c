@@ -1,14 +1,14 @@
-package controller
+package controllers
 
 import (
 	"encoding/json"
 	"net/http"
 
-	"bitbucket.org/augustoscher/API-C/model"
+	"bitbucket.org/augustoscher/API-C/models"
 	"github.com/gorilla/mux"
 )
 
-var consultas []model.HistoricoConsultaCpf
+var consultas []models.HistoricoConsultaCpf
 
 //AllConsultasCpfEndPoint retornas todas as consultas realizadas ao CPF
 func AllConsultasCpfEndPoint(w http.ResponseWriter, r *http.Request) {
@@ -18,7 +18,7 @@ func AllConsultasCpfEndPoint(w http.ResponseWriter, r *http.Request) {
 //FindConsultasCpfPorCpfEndpoint retorna todas as consultas de determinado cpf
 func FindConsultasCpfPorCpfEndpoint(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
-	var cons []model.HistoricoConsultaCpf
+	var cons []models.HistoricoConsultaCpf
 
 	for _, item := range consultas {
 		if item.Pessoa.Cpf == params["cpf"] {
@@ -31,7 +31,7 @@ func FindConsultasCpfPorCpfEndpoint(w http.ResponseWriter, r *http.Request) {
 //CreateConsultaCpfEndPoint adiciona um registro no histórico de consultas a cpf
 func CreateConsultaCpfEndPoint(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
-	var consulta model.HistoricoConsultaCpf
+	var consulta models.HistoricoConsultaCpf
 	_ = json.NewDecoder(r.Body).Decode(&consulta)
 	consulta.ID = params["id"]
 	consultas = append(consultas, consulta)
@@ -40,7 +40,7 @@ func CreateConsultaCpfEndPoint(w http.ResponseWriter, r *http.Request) {
 
 //AdicionarConsultas adiciona pessoas para servirem de exemplo
 func AdicionarConsultas() {
-	endereco := model.Endereco{
+	endereco := models.Endereco{
 		ID:     "1",
 		Rua:    "Wilhelm Budag",
 		Numero: "45",
@@ -49,14 +49,14 @@ func AdicionarConsultas() {
 		Estado: "SC",
 		Pais:   "Brasil",
 	}
-	estabelecimento := model.Estabelecimento{
+	estabelecimento := models.Estabelecimento{
 		ID:       "1",
 		Nome:     "Meu Estabelecimento",
 		Cnpj:     "21555582000142",
 		Ie:       "687516546",
 		Endereco: &endereco,
 	}
-	estabelecimento2 := model.Estabelecimento{
+	estabelecimento2 := models.Estabelecimento{
 		ID:       "2",
 		Nome:     "Estabelecimento2",
 		Cnpj:     "21123482000142",
@@ -66,7 +66,7 @@ func AdicionarConsultas() {
 
 	pessoa := pessoas[0]
 	pessoa2 := pessoas[1]
-	consultas = append(consultas, model.HistoricoConsultaCpf{ID: "1", Pessoa: &pessoa, Data: "26/01/2019", Situacaocpf: "Adimplente", Consultadopor: &estabelecimento})
-	consultas = append(consultas, model.HistoricoConsultaCpf{ID: "2", Pessoa: &pessoa, Data: "14/01/2019", Situacaocpf: "Adimplente", Consultadopor: &estabelecimento2})
-	consultas = append(consultas, model.HistoricoConsultaCpf{ID: "3", Pessoa: &pessoa2, Data: "20/07/2018", Situacaocpf: "Negativado", Consultadopor: &estabelecimento2})
+	consultas = append(consultas, models.HistoricoConsultaCpf{ID: "1", Pessoa: &pessoa, Data: "26/01/2019", Situacaocpf: "Adimplente", Consultadopor: &estabelecimento})
+	consultas = append(consultas, models.HistoricoConsultaCpf{ID: "2", Pessoa: &pessoa, Data: "14/01/2019", Situacaocpf: "Adimplente", Consultadopor: &estabelecimento2})
+	consultas = append(consultas, models.HistoricoConsultaCpf{ID: "3", Pessoa: &pessoa2, Data: "20/07/2018", Situacaocpf: "Negativado", Consultadopor: &estabelecimento2})
 }

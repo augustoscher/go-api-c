@@ -1,14 +1,14 @@
-package controller
+package controllers
 
 import (
 	"encoding/json"
 	"net/http"
 
-	"bitbucket.org/augustoscher/API-C/model"
+	"bitbucket.org/augustoscher/API-C/models"
 	"github.com/gorilla/mux"
 )
 
-var movimentos []model.MovimentacoesFinanceiras
+var movimentos []models.MovimentacoesFinanceiras
 
 //AllMovimentoFinanceiroEndPoint retornas todos os movimentos financeiros
 func AllMovimentoFinanceiroEndPoint(w http.ResponseWriter, r *http.Request) {
@@ -18,7 +18,7 @@ func AllMovimentoFinanceiroEndPoint(w http.ResponseWriter, r *http.Request) {
 //FindMovimentoFinanceiroPorCpfEndpoint busca um movimento financeiro por Cpf
 func FindMovimentoFinanceiroPorCpfEndpoint(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
-	var movs []model.MovimentacoesFinanceiras
+	var movs []models.MovimentacoesFinanceiras
 
 	for _, item := range movimentos {
 		if item.Pessoa.Cpf == params["cpf"] {
@@ -31,7 +31,7 @@ func FindMovimentoFinanceiroPorCpfEndpoint(w http.ResponseWriter, r *http.Reques
 //CreateMovimentoFinanceiroEndPoint adiciona um movimento financeiro
 func CreateMovimentoFinanceiroEndPoint(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
-	var movimento model.MovimentacoesFinanceiras
+	var movimento models.MovimentacoesFinanceiras
 	_ = json.NewDecoder(r.Body).Decode(&movimento)
 	movimento.ID = params["id"]
 	movimentos = append(movimentos, movimento)
@@ -40,7 +40,7 @@ func CreateMovimentoFinanceiroEndPoint(w http.ResponseWriter, r *http.Request) {
 
 //AdicionarMovimentosFinanceiros adiciona alguns movimentos para servirem de exemplo
 func AdicionarMovimentosFinanceiros() {
-	conta := model.ContaBancaria{
+	conta := models.ContaBancaria{
 		ID:          "1",
 		Instituicao: "Bradesco",
 		Agencia:     "7445",
@@ -49,7 +49,7 @@ func AdicionarMovimentosFinanceiros() {
 	}
 	pessoa := pessoas[0]
 	pessoa2 := pessoas[1]
-	movimentos = append(movimentos, model.MovimentacoesFinanceiras{ID: "1", Pessoa: &pessoa, Valor: 500.00, Data: "26/01/2019", Tipo: "C", Conta: &conta, Nomeestabelecimento: ""})
-	movimentos = append(movimentos, model.MovimentacoesFinanceiras{ID: "2", Pessoa: &pessoa, Valor: 125.00, Data: "26/01/2019", Tipo: "D", Conta: &conta, Nomeestabelecimento: "Shopping"})
-	movimentos = append(movimentos, model.MovimentacoesFinanceiras{ID: "3", Pessoa: &pessoa2, Valor: 100.00, Data: "26/01/2019", Tipo: "C", Conta: &conta, Nomeestabelecimento: ""})
+	movimentos = append(movimentos, models.MovimentacoesFinanceiras{ID: "1", Pessoa: &pessoa, Valor: 500.00, Data: "26/01/2019", Tipo: "C", Conta: &conta, Nomeestabelecimento: ""})
+	movimentos = append(movimentos, models.MovimentacoesFinanceiras{ID: "2", Pessoa: &pessoa, Valor: 125.00, Data: "26/01/2019", Tipo: "D", Conta: &conta, Nomeestabelecimento: "Shopping"})
+	movimentos = append(movimentos, models.MovimentacoesFinanceiras{ID: "3", Pessoa: &pessoa2, Valor: 100.00, Data: "26/01/2019", Tipo: "C", Conta: &conta, Nomeestabelecimento: ""})
 }

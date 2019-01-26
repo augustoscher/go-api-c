@@ -1,14 +1,14 @@
-package controller
+package controllers
 
 import (
 	"encoding/json"
 	"net/http"
 
-	"bitbucket.org/augustoscher/API-C/model"
+	"bitbucket.org/augustoscher/API-C/models"
 	"github.com/gorilla/mux"
 )
 
-var compras []model.MovimentacoesCartaoCredito
+var compras []models.MovimentacoesCartaoCredito
 
 //AllMovimentoCartaoEndPoint retorna todos os movimentos de cartao
 func AllMovimentoCartaoEndPoint(w http.ResponseWriter, r *http.Request) {
@@ -18,7 +18,7 @@ func AllMovimentoCartaoEndPoint(w http.ResponseWriter, r *http.Request) {
 //CreateMovimentoCartaoEndPoint cria um movimento de cartão
 func CreateMovimentoCartaoEndPoint(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
-	var compra model.MovimentacoesCartaoCredito
+	var compra models.MovimentacoesCartaoCredito
 	_ = json.NewDecoder(r.Body).Decode(&compra)
 	compra.ID = params["id"]
 	compras = append(compras, compra)
@@ -28,7 +28,7 @@ func CreateMovimentoCartaoEndPoint(w http.ResponseWriter, r *http.Request) {
 //FindMovimentoCartaoPorCpfEndpoint retorna movimentos de cartao de credito de determinado cpf
 func FindMovimentoCartaoPorCpfEndpoint(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
-	var movsCartao []model.MovimentacoesCartaoCredito
+	var movsCartao []models.MovimentacoesCartaoCredito
 
 	for _, item := range compras {
 		if item.Pessoa.Cpf == params["cpf"] {
@@ -40,7 +40,7 @@ func FindMovimentoCartaoPorCpfEndpoint(w http.ResponseWriter, r *http.Request) {
 
 //AdicionarMovimentosCartaoCredito adiciona alguns movimentos de cartão para servirem de exemplo
 func AdicionarMovimentosCartaoCredito() {
-	cartao := model.CartaoCredito{
+	cartao := models.CartaoCredito{
 		ID:            "1",
 		Nome:          "Nubank",
 		Numero:        "79876546898784",
@@ -49,7 +49,7 @@ func AdicionarMovimentosCartaoCredito() {
 		Validade:      "08/2020",
 		Diavencimento: "10",
 	}
-	cartao2 := model.CartaoCredito{
+	cartao2 := models.CartaoCredito{
 		ID:            "2",
 		Nome:          "Digio",
 		Numero:        "8984132494",
@@ -58,7 +58,7 @@ func AdicionarMovimentosCartaoCredito() {
 		Validade:      "05/2019",
 		Diavencimento: "5",
 	}
-	endereco := model.Endereco{
+	endereco := models.Endereco{
 		ID:     "1",
 		Rua:    "Wilhelm Budag",
 		Numero: "45",
@@ -67,14 +67,14 @@ func AdicionarMovimentosCartaoCredito() {
 		Estado: "SC",
 		Pais:   "Brasil",
 	}
-	estabelecimento := model.Estabelecimento{
+	estabelecimento := models.Estabelecimento{
 		ID:       "1",
 		Nome:     "Meu Estabelecimento",
 		Cnpj:     "21555582000142",
 		Ie:       "687516546",
 		Endereco: &endereco,
 	}
-	estabelecimento2 := model.Estabelecimento{
+	estabelecimento2 := models.Estabelecimento{
 		ID:       "2",
 		Nome:     "Estabelecimento2",
 		Cnpj:     "21123482000142",
@@ -83,7 +83,7 @@ func AdicionarMovimentosCartaoCredito() {
 	}
 	pessoa := pessoas[0]
 	pessoa2 := pessoas[1]
-	compras = append(compras, model.MovimentacoesCartaoCredito{ID: "1", Pessoa: &pessoa, Valor: 500.00, Data: "26/01/2019", Estabelecimento: &estabelecimento, CartaoCredito: &cartao})
-	compras = append(compras, model.MovimentacoesCartaoCredito{ID: "2", Pessoa: &pessoa, Valor: 125.00, Data: "26/01/2019", Estabelecimento: &estabelecimento, CartaoCredito: &cartao})
-	compras = append(compras, model.MovimentacoesCartaoCredito{ID: "3", Pessoa: &pessoa2, Valor: 100.00, Data: "26/01/2019", Estabelecimento: &estabelecimento2, CartaoCredito: &cartao2})
+	compras = append(compras, models.MovimentacoesCartaoCredito{ID: "1", Pessoa: &pessoa, Valor: 500.00, Data: "26/01/2019", Estabelecimento: &estabelecimento, CartaoCredito: &cartao})
+	compras = append(compras, models.MovimentacoesCartaoCredito{ID: "2", Pessoa: &pessoa, Valor: 125.00, Data: "26/01/2019", Estabelecimento: &estabelecimento, CartaoCredito: &cartao})
+	compras = append(compras, models.MovimentacoesCartaoCredito{ID: "3", Pessoa: &pessoa2, Valor: 100.00, Data: "26/01/2019", Estabelecimento: &estabelecimento2, CartaoCredito: &cartao2})
 }
