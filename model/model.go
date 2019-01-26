@@ -2,10 +2,11 @@ package model
 
 //Pessoa representa as informações de uma pessoa
 type Pessoa struct {
-	ID       string    `json:"id,omitempty"`
-	Cpf      string    `json:"cpf,omitempty"`
-	Nome     string    `json:"nome,omitempty"`
-	Endereco *Endereco `json:"endereco,omitempty"`
+	ID             string    `json:"id,omitempty"`
+	Cpf            string    `json:"cpf,omitempty"`
+	Datanascimento string    `json:"datanascimento,omitempty"`
+	Nome           string    `json:"nome,omitempty"`
+	Endereco       *Endereco `json:"endereco,omitempty"`
 }
 
 //MovimentacoesFinanceiras representa as movimentações financeiras de uma determinada pessoa
@@ -24,7 +25,6 @@ type MovimentacoesCartaoCredito struct {
 	ID              string           `json:"id,omitempty"`
 	Pessoa          *Pessoa          `json:"pessoa,omitempty"`
 	Valor           float64          `json:"valor,omitempty"`
-	Tipo            string           `json:"tipo,omitempty"`
 	Data            string           `json:"data,omitempty"`
 	Estabelecimento *Estabelecimento `json:"estabelecimento,omitempty"`
 	CartaoCredito   *CartaoCredito   `json:"cartaocredito,omitempty"`
@@ -41,13 +41,13 @@ type Estabelecimento struct {
 
 //CartaoCredito representa as informações de determinado cartão de crédito
 type CartaoCredito struct {
-	ID         string `json:"id,omitempty"`
-	Nome       string `json:"nome,omitempty"`
-	Numero     string `json:"numero,omitempty"`
-	Dv         string `json:"dv,omitempty"`
-	Emissao    string `json:"emissao,omitempty"`
-	Validade   string `json:"validade,omitempty"`
-	Vencimento string `json:"vencimento,omitempty"`
+	ID            string `json:"id,omitempty"`
+	Nome          string `json:"nome,omitempty"`
+	Numero        string `json:"numero,omitempty"`
+	Dv            string `json:"dv,omitempty"`
+	Emissao       string `json:"emissao,omitempty"`
+	Validade      string `json:"validade,omitempty"`
+	Diavencimento string `json:"diavencimento,omitempty"`
 }
 
 //ContaBancaria representa as informações de uma conta bancária de uma pessoa
@@ -68,4 +68,13 @@ type Endereco struct {
 	Cidade string `json:"cidade,omitempty"`
 	Estado string `json:"estado,omitempty"`
 	Pais   string `json:"pais,omitempty"`
+}
+
+//HistoricoConsultaCpf é responsável por representar o histórico de consultas a um cpf.
+type HistoricoConsultaCpf struct {
+	ID            string           `json:"id,omitempty"`
+	Pessoa        *Pessoa          `json:"pessoa,omitempty"`
+	Data          string           `json:"data,omitempty"`
+	Situacaocpf   string           `json:"situacaocpf,omitempty"`
+	Consultadopor *Estabelecimento `json:"consultadopor,omitempty"`
 }

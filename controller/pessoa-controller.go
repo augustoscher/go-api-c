@@ -28,7 +28,7 @@ func FindPessoaEndpoint(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(&model.Pessoa{})
 }
 
-//CreatePessoaEndPoint exclui uma pessoa
+//CreatePessoaEndPoint cria uma pessoa
 func CreatePessoaEndPoint(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	var pessoa model.Pessoa
@@ -43,18 +43,6 @@ func UpdatePessoaEndPoint(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "not implemented yet !")
 }
 
-//DeletePessoaEndPoint exclui uma pessoa
-func DeletePessoaEndPoint(w http.ResponseWriter, r *http.Request) {
-	params := mux.Vars(r)
-	for index, item := range pessoas {
-		if item.ID == params["id"] {
-			pessoas = append(pessoas[:index], pessoas[index+1:]...)
-			break
-		}
-		json.NewEncoder(w).Encode(pessoas)
-	}
-}
-
 //AdicionarPessoas adiciona pessoas para servirem de exemplo
 func AdicionarPessoas() {
 	endereco := model.Endereco{
@@ -66,6 +54,6 @@ func AdicionarPessoas() {
 		Estado: "SC",
 		Pais:   "Brasil",
 	}
-	pessoas = append(pessoas, model.Pessoa{ID: "1", Nome: "John", Cpf: "02506196013", Endereco: &endereco})
-	pessoas = append(pessoas, model.Pessoa{ID: "2", Nome: "Koko", Cpf: "02506196013", Endereco: &endereco})
+	pessoas = append(pessoas, model.Pessoa{ID: "1", Nome: "John", Cpf: "02506196013", Datanascimento: "16/05/1991", Endereco: &endereco})
+	pessoas = append(pessoas, model.Pessoa{ID: "2", Nome: "Koko", Cpf: "02206795012", Datanascimento: "14/07/1992", Endereco: &endereco})
 }
