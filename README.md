@@ -6,10 +6,10 @@
 
 ### Passos para iniciar a aplicação:  
 1) Clonar o projeto em seu workspace go (GOPATH).  
-git clone https://augustoscher@bitbucket.org/augustoscher/api-c.git  
-2) Através do terminal, acessar o diretório API-C em seu workspace. 
+git clone https://augustoscher@bitbucket.org/augustoscher/api-c.git   
+2) Através do terminal, acessar o diretório API-C em seu workspace.  
 cd api-c  
-3) Executar o comando para instalar dependências
+3) Executar o comando para instalar dependências  
 go get  
 
 É possivel instalar as dependências uma a uma:  
