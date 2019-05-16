@@ -1,53 +1,67 @@
-# api-c
+# go-api-c #
 
-### Pré-Requisitos 
-1) Ter Go instalado.  
-2) Ter ferramenta para testes de endpoints (Postman, Curl).  
+#### GOlang API with JWT authentication example ####
 
-### Passos para iniciar a aplicação:  
-1) Clonar o projeto em seu workspace go (GOPATH).  
-git clone https://augustoscher@bitbucket.org/augustoscher/api-c.git   
-2) Através do terminal, acessar o diretório API-C em seu workspace.  
-cd api-c  
-3) Executar o comando para instalar dependências  
-go get  
+* GOlang-API-C  
 
-É possivel instalar as dependências uma a uma:  
-got get github.com/codegangsta/negroni  
-got get github.com/dgrijalva/jwt-go  
-got get github.com/gorilla/context  
-got get github.com/gorilla/mux  
-got get github.com/mitchellh/mapstructure  
+##### Requirements:  
+- Go needs to be installed.
+- Some tool to endpoint testing (curl, postman)
 
-3) Executar: go run main.go  
 
-### Execução de testes  
-Através do Postman:  
+### Setting Up 
+----
+##### 1. Clone the repositorie in your GOPATH  
+> git clone https://augustoscher@bitbucket.org/augustoscher/api-c.git   
 
-1) Fazer login na api:    
-executar chamada POST em http://localhost:3000/login  
-body:  
+##### 2. Access the repositorie
+> cd go-api-c  
+
+##### 3. Install the dependencies
+> go get  
+
+or one by one  
+
+> got get github.com/codegangsta/negroni  
+> got get github.com/dgrijalva/jwt-go  
+> got get github.com/gorilla/context  
+> got get github.com/gorilla/mux  
+> got get github.com/mitchellh/mapstructure  
+
+##### 4. Running
+> go run main.go  
+
+
+### Test
+----
+
+##### 1. Login   
+> POST http://localhost:3000/login  
+```json
 {
-	"username": "augusto",
-	"password": "testing"
+  "username": "augusto",
+  "password": "testing"
 }
-será retornado um JWT, por exemplo: 
+```
+
+It should return: 
+```json
 {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6InRlc3RpbmciLCJ1c2VybmFtZSI6ImF1Z3VzdG8ifQ.77xiMA_tBkEhwigv9n5iAk_i59Y63eRLWuk3AehARO8"}
+```
+You have to add Bearer Token in header of every request.
 
-2) Buscar histórico de consultas por CPF.  
-adicionar o Bearer Token nas autorizações.  
-executar chamada GET http://localhost:3000/consultascpf/02206795012  
-será retornada o histórico de consulta para o cpf informado.  
-A url http://localhost:3000/consultascpf retorna todo o historico de consultas.  
+##### 2. Get the history of searchs by CPF     
+> GET http://localhost:3000/consultascpf/02206795012  
+or  
+> http://localhost:3000/consultascpf  
 
-3) Buscar histórico de movimentações financeira por cpf  
-adicionar o Bearer Token nas autorizações.  
-executar chamada GET http://localhost:3000/movimentosfinanceiro/02506196013  
-será retornada o histórico de movimentos financeiros do cpf informado.  
-A url http://localhost:3000/movimentosfinanceiro retorna todo o historico de movimentações.  
+##### 3. Get the history of financial transactions by CPF  
+> GET http://localhost:3000/movimentosfinanceiro/02506196013  
+or  
+> GET http://localhost:3000/movimentosfinanceiro 
 
-4) Buscar histórico de movimentações de cartão de crédito por cpf  
-adicionar o Bearer Token nas autorizações.  
-executar chamada GET http://localhost:3000/movimentoscartao/02506196013.  
-será retornada o histórico de transações de cartão de crédito relacionadas ao cpf informado.  
-A url http://localhost:3000/movimentoscartao retorna todo o historico de movimentações de cartão.  
+
+##### 4. Get the history of credit card transactions by CPF  
+> GET http://localhost:3000/movimentoscartao/02506196013  
+or  
+> A url http://localhost:3000/movimentoscartao
