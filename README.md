@@ -65,3 +65,7 @@ or
 > GET http://localhost:3000/movimentoscartao/02506196013  
 or  
 > A url http://localhost:3000/movimentoscartao
+
+### Next steps
+----
+Dockerize the API and HTTP Rest Client with docker-compose
